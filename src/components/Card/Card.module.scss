@@ -1,0 +1,60 @@
+.content-list-card{
+    border-radius: 40px;
+    border: 1px solid hsl(0, 0%, 95%);
+    background: #FFF;
+    padding: 30px;
+    margin-right: 30px;
+    width: 150px;
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s;
+    &:hover{
+      box-shadow: 0px 14px 30px 0px rgba(0, 0, 0, 0.05);
+      transform: translateY(-8px);
+    }
+    &-liked{
+      position: absolute;
+      cursor: pointer;
+    }
+    &-p{
+      color: #000;
+      font-family: Inter;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+    &-btm{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      &-text{
+        display: flex;
+        flex-direction: column;
+        &-span{
+          color: #BDBDBD;
+          font-family: Inter;
+          font-size: 11px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: normal;
+          text-transform: uppercase;
+        }
+        &-b{
+          color: #000;
+          font-family: Inter;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: normal;
+        }
+      }
+      &-btn{
+      
+        width: 32px;
+        height: 32px;
+        flex-shrink: 0;
+        border: none;
+        background-color: inherit;
+        cursor: pointer;
+      }
+    }
+  }
