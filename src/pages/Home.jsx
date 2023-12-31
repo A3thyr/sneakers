@@ -7,6 +7,7 @@ function Home({items,
     onSearchInput,
     setFindItems,
     addToFavorites,
+    
     addToCart,
     isLoading,
     }){
@@ -14,7 +15,7 @@ function Home({items,
         const renderItems = () =>{
             const filtredItems = items.filter(item => item.title.includes(findItems.charAt(0).toUpperCase()),
             );
-            return (isLoading ? [...Array(8)] : filtredItems).map((item,index) => (
+            return (isLoading ? [...Array(12)] : filtredItems).map((item,index) => (
                 <Card 
                     key={index}
                     onClickFav = {(obj) => addToFavorites(obj)}

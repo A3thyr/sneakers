@@ -14,14 +14,15 @@ function Card({
 })  {
     const {isItemAddCard} = React.useContext(storeContext)
     const [favorite, setFavorite] = React.useState(favorited);
+    const obj = {title, price, imageUrl, id , parentId : id}
     
     const onClickPlus = () =>{
-        onPlus({title, price, imageUrl, id});
-
+        onPlus(obj);
+        
     }; 
 
     const onClickFavorite = () =>{
-        onClickFav({title, price, imageUrl, id});
+        onClickFav(obj);
         setFavorite(!favorite)
     }
 
@@ -46,10 +47,10 @@ function Card({
             : 
             <>
                 <div className="content-list-card-liked" onClick={onClickFavorite}>
-                    <img 
+                   {onClickFav && ( <img 
                         src={favorite ? "/img/liked.svg" : "/img/like.svg"} 
                         alt="unliked">
-                    </img>
+                    </img>)}
                 </div>
                 <img src={imageUrl} width={133} height={112} alt="sneakers1"></img>
                 <p className="content-list-card-p">{title}</p>
@@ -58,12 +59,12 @@ function Card({
                     <span className="content-list-card-btm-text-span">Цена:</span>
                     <b className="content-list-card-btm-text-b">{price} руб.</b>
                     </div>
-                    <img 
+                    {onPlus && (<img 
                         className="content-list-card-btm-btn" 
                         src={isItemAddCard(id) ? "/img/checked.svg"  : "/img/add.svg"} 
                         onClick={onClickPlus} 
                         alt="add">
-                    </img>
+                    </img>)}
                 </div>
             </>
         }

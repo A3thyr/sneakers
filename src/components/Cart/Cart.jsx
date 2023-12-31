@@ -1,14 +1,13 @@
 import React from 'react'
 import Info from '../Info/Info';
-import storeContext from '../../context';
 import axios from 'axios';
+import { useCart } from '../../hooks/useCart';
 
 function Cart({onClose, onRemove, items = []}){
-  const {cartItems,setCartItems} = React.useContext(storeContext)
+  const {cartItems, setCartItems, sumPrice} = useCart();
   const [orderId, setOrderId] = React.useState(false);
   const [isOrderCompleted, setIsOrderCompleted] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
-
   const delay = () => new Promise((resolve) => setTimeout(resolve, 1000))
 
   const onClickOrder = async () =>{
@@ -30,7 +29,7 @@ function Cart({onClose, onRemove, items = []}){
     } catch (error) {
       console.log('Трабл с созданием заказа')
     }
-    setIsLoading(false)
+
   };
 
   return(
@@ -58,12 +57,12 @@ function Cart({onClose, onRemove, items = []}){
                   <li className="overlay-modalcart-btm-ul-li">
                     <span className="overlay-modalcart-btm-ul-li-span">Итого: </span>
                     <div className="overlay-modalcart-btm-ul-li-line"></div>
-                    <b className="overlay-modalcart-btm-ul-li-b">21 498 руб. </b>
+                    <b className="overlay-modalcart-btm-ul-li-b">{sumPrice} руб. </b>
                   </li>
                   <li className="overlay-modalcart-btm-ul-li">
                     <span className="overlay-modalcart-btm-ul-li-span">Налог 5%: </span>
                     <div className="overlay-modalcart-btm-ul-li-line"></div>
-                    <b className="overlay-modalcart-btm-ul-li-b">1074 руб.</b>
+                    <b className="overlay-modalcart-btm-ul-li-b">{Math.round(sumPrice * 0.05)} руб.</b>
                   </li>
                 </ul>
                 <button disabled={isLoading} onClick={onClickOrder} className="overlay-modalcart-btm-buybtn">Оформить заказ
