@@ -1,16 +1,19 @@
 import React from 'react'
 import storeContext from '../../context'
+import { Link } from 'react-router-dom'
 
 export const Info = ({title, image, description}) => {
     const {setCartOpen} = React.useContext(storeContext)
   return (
-    <div className="overlay-modalcart-empty">
-        <img src={image}  height={120} alt="box"/> 
-        <h2 className="overlay-modalcart-empty-title">{title}</h2>
-        <p className="overlay-modalcart-empty-p">{description}</p>
-        <button onClick={() => setCartOpen(false)} className="overlay-modalcart-empty-btn">                
-            <img src="/img/arrow-left.svg" alt="arrowrleft"/>
-            Вернуться назад</button>
+    <div className="overlay_modalcart-empty">
+        <img src={image}   alt="box"/> 
+        <h2 className="overlay_modalcart-empty-title">{title}</h2>
+        <p className="overlay_modalcart-empty-p">{description}</p>
+        <Link to="/">
+          <button onClick={() => setCartOpen(false)} className="overlay_modalcart-empty-btn">                
+              <img src="/img/arrow-left.svg" alt="arrowrleft"/>
+              Вернуться назад</button>
+        </Link>
     </div>
     )
 }

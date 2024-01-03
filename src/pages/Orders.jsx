@@ -1,7 +1,7 @@
 import React from "react";
 import Card from "../components/Card/Card";
-
 import axios from "axios";
+import Info from "../components/Info/Info";
 
 
 function Orders(){
@@ -19,19 +19,26 @@ function Orders(){
             }
         })();
     }, [])
-
+    
     return (
         <div className="content">
-                <h1 className="content-top-title">Мои заказы</h1>
-                <div className="content-list">
-                { (isLoading ? [...Array(12)] : orders).map((item, index) => (
-                    <Card 
-                        key={index}
-                        loading = {isLoading}
-                        {...item}
-                    />
-                ))}
-                </div>
+            <h1 className="content-top-title">Мои заказы</h1>
+            {orders.length > 1 ? (<div className="content-list">
+            {(isLoading ? [...Array(12)] : orders).map((item, index) => (
+                <Card 
+                    key={index}
+                    loading = {isLoading}
+                    {...item}
+                />
+            ))}
+            </div>
+            ) : (
+                <Info
+                    title={"У вас нет заказов"}
+                    description={"Вы нищеброд? Оформите хотя бы один заказ."}
+                    image={"/img/cryge.jpg"}
+                />
+            )}
         </div>
     );
 }

@@ -7,7 +7,6 @@ function Home({items,
     onSearchInput,
     setFindItems,
     addToFavorites,
-    
     addToCart,
     isLoading,
     }){

@@ -6,21 +6,34 @@
     height: 100%;
     background-color: #00000071;
     z-index: 1;
-    &-modalcart{
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    overflow: hidden;
+    &.overlayVisible{
+      visibility: visible;
+      opacity: 1;
+    }
+    &_modalcart{
       display: flex;
       flex-direction: column;
       flex: 1;
       width: 385px;
-      height: 100%;
+//  BIG workaround, works only for 100% scale of page, fat L for now sadly...
+      height: 900px;
+//    
+      justify-content: space-between;
+      z-index: 2;
       right: 0;
-      position: fixed;
+      position: absolute;
       background: #FFF;
       box-shadow: -10px 4px 24px 0px rgba(0, 0, 0, 0.10);
       padding: 30px;
-      
-      &-items{
+
+      &-top{
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        justify-content: space-between;
         &-title{
           margin-bottom: 30px;
           color: #000;
@@ -30,6 +43,18 @@
           font-weight: 700;
           line-height: normal;
         }
+        &-btn{
+
+          &:hover{
+            cursor: pointer;
+          }
+        }
+      }
+      &-items{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex: 1;
         &-item{
           display: flex;
           align-items: center;
@@ -75,6 +100,7 @@
         align-items: center;
         justify-content: center;
         &-title{
+          margin-top: 30px;
           color: #000;
           font-family: Inter;
           font-size: 22px;
@@ -83,6 +109,7 @@
           line-height: normal;
         }
         &-p{
+          margin-top: 11px;
           color: #000;
           text-align: center;
           font-family: Inter;
@@ -97,6 +124,7 @@
           align-items: center;
           justify-content: center;
           position: relative;
+          margin-top: 40px;
           padding: 18px 0;
           border: none;
           border-radius: 18px;
@@ -111,15 +139,14 @@
           font-style: normal;
           font-weight: 600;
           line-height: normal;
-          transition: 0.3s;
           &:hover{
             cursor: pointer;
             opacity: 0.7;
-            transition: 0.3s;
+
           }
           & img{
             left: 0;
-            margin-left: 31px;
+            margin-left: 25px;
             position: absolute;
           }
         }
@@ -177,14 +204,14 @@
           font-style: normal;
           font-weight: 600;
           line-height: normal;
-          transition: 0.3s;
+
           &:disabled{
             background-color: #a8a8a8;
           }
           &:hover{
             cursor: pointer;
             opacity: 0.7;
-            transition: 0.3s;
+
           }
           & img{
             position: absolute;

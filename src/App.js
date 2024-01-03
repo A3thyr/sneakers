@@ -41,29 +41,9 @@ function App() {
         setCartItems(prev => prev.filter(item => Number(item.parentId) !== Number(obj.id)))
         await axios.delete(`https://6582a71902f747c83679cc3f.mockapi.io/cart/${findItem.id}`);
       } else {
+        setCartItems(prev => [...prev, obj]);
         const { data } = await axios.post('https://6582a71902f747c83679cc3f.mockapi.io/cart', obj);
-        setCartItems(prev => [...prev, data]);
-      }
-    } catch (error) {
-      console.error('Трабл c добавлением в корзину')
-    } 
-  };
-
-  const onClickDel = (id) =>{
-    axios.delete(`https://6582a71902f747c83679cc3f.mockapi.io/cart/${id}`);
-    setCartItems(prev => prev.filter(item => Number(item.id) !== Number(id)));
-    
-  };
-  
-  const addToFavorites = async (obj) =>{
-    try {
-      if(favorites.find(favObj => Number(favObj.id) === Number(obj.id))){
-        axios.delete(`https://658c1630859b3491d3f57382.mockapi.io/favorites/${obj.id}`)
-        setFavorites(prev => prev.filter(item => Number(item.id) !== Number(obj.id)));
-      } else{
-        setFavorites(prev => [...prev, obj]);
-        const { data } = await axios.post('https://658c1630859b3491d3f57382.mockapi.io/favorites', obj);
-        setFavorites(prev => prev.map((item) => {
+        setCartItems(prev => prev.map((item) => {
           if(item.parentId === data.parentId){
             return {
               ...item,
@@ -74,10 +54,28 @@ function App() {
         }));
       }
     } catch (error) {
-      console.log('Траблс')
+      console.error('Трабл c добавлением в корзину')
     } 
   };
 
+  const onClickDel = (id) =>{
+    axios.delete(`https://6582a71902f747c83679cc3f.mockapi.io/cart/${id}`);
+    setCartItems(prev => prev.filter(item => Number(item.id) !== Number(id)));
+  };
+  
+  const addToFavorites = async (obj) =>{
+    try {
+      if(favorites.find(favObj => Number(favObj.id) === Number(obj.id))){
+        axios.delete(`https://658c1630859b3491d3f57382.mockapi.io/favorites/${obj.id}`)
+        setFavorites(prev => prev.filter(item => Number(item.id) !== Number(obj.id)));
+      } else{
+        const { data } = await axios.post('https://658c1630859b3491d3f57382.mockapi.io/favorites', obj);
+        setFavorites(prev => [...prev, data]);
+      }
+    } catch (error) {
+      console.log('Траблс');
+    } 
+  };
 
   const onSearchInput = (event) =>{
     setFindItems(event.target.value);
@@ -90,8 +88,14 @@ function App() {
   return (
     <storeContext.Provider value={{items, cartItems, favorites, isItemAddCard, setCartOpen,setCartItems,addToCart}}>
       <div className="page">
-        {cartOpen && <Cart items={cartItems} onClose={() => setCartOpen(false)} onRemove={onClickDel} />}
+          <Cart 
+            items={cartItems} 
+            onClose={() => setCartOpen(false)} 
+            onRemove={onClickDel} 
+            opened={cartOpen}
+          />
         <Header onClickCart={() => setCartOpen(true)}  />
+        <div className="page-header-line"></div>
         <Routes >
           <Route path='/' exact element={<Home 
               items={items}
